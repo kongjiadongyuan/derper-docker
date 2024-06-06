@@ -1,0 +1,15 @@
+[Unit]
+Description=Tailscale DERP Server
+After=network.target
+
+[Service]
+User=root
+Restart=always
+RestartSec=5
+EnvironmentFile=/etc/derp_environment
+ExecStart=/etc/derper.sh
+ExecStop=/bin/kill $MAINPID
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

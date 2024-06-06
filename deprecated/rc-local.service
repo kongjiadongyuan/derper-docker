@@ -1,0 +1,12 @@
+[Unit]
+Description=Custom Startup Script
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/derp_environment
+ExecStart=/etc/rc.local
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

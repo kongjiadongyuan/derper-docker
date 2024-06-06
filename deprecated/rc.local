@@ -1,0 +1,18 @@
+# First time setup the SSL certificate
+# If /root/certs directory does not exist, create it
+if [ ! -d "/root/certs" ]; then
+    echo "Generating SSL certificate for $HOSTNAME"
+    mkdir /root/certs
+    /root/.acme.sh/acme.sh --issue --dns dns_cf -d $HOSTNAME
+    
+    # Exit if the certificate generation failed
+    if [ $? -eq 1 ]; then
+        echo "Failed to generate SSL certificate"
+        exit 1
+    fi
+
+    # Install the certificate
+    /root/.acme.sh/acme.sh --install-cert -d $HOSTNAME --key-file /root/certs/$HOSTNAME.key --fullchain-file /root/certs/$HOSTNAME.crt --reloadcmd "systemctl restart derp"
+fi
+
+exec /lib/systemd/systemd
