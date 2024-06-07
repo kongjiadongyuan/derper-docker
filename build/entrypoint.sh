@@ -27,7 +27,7 @@ task1() {
     if [ ! -d "$CERT_PATH" ]; then
         echo "[Certbot] Creating directory $CERT_PATH and generating certificates"
         mkdir -p $CERT_PATH
-        /root/.acme.sh/acme.sh --issue --dns dns_cf -d $HOSTNAME
+        /root/.acme.sh/acme.sh --issue --dns dns_cf -d $HOSTNAME $EXTRA_OPT_FOR_ACME
         if [ $? -eq 1 ]; then
             echo "[Certbot] Failed to generate certificates"
             exit 1
