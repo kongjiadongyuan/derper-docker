@@ -15,6 +15,7 @@ docker run -d \
     -e CF_Email=your_cloudflare_email \
     -e HOSTNAME=your_domain_name \
     -e STUN_PORT=stun_port \
+    -e EXTRA_OPT_FOR_ACME="--server letsencrypt" \
     -p stun_port:stun_port/udp \
     -p https_port:443/tcp \
     derper_image
@@ -26,6 +27,7 @@ docker run -d \
 - `CF_Email`: Your cloudflare email
 - `HOSTNAME`: Your domain name, which will be used for accessing the derper server
 - `STUN_PORT`: The port you want to use for STUN
+- `EXTRA_OPT_FOR_ACME`: Extra options for acme.sh, you can use `--server letsencrypt` to use letsencrypt as the CA
 
 Derper cannot change the port it listens on for `https`, so you need to map `443` to the port you want to use for `https`.
 
